@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>Réserve Ton RDV | YAUDI</title>
+    <meta name="description"
+        content="Réserve ton appel découverte de 30 minutes avec Adèle Kasaku - Programme GUERISON ANCESTRALE">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/6750a37a9ad16_yaudilogo.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Stripe -->
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- ========== CHECKOUT HERO ========== -->
+    <section class="checkout-hero">
+        <div class="container">
+            <img src="assets/images/6750a37a9ad16_yaudilogo.png" alt="YAUDI Logo"
+                style="width: 97px; margin: 0 auto 20px;">
+
+            <h1>Pour les professionnels du bien-être et de la santé</h1>
+            <h2>Réserve <span>Ton RDV</span></h2>
+
+            <p>
+                Prends rendez-vous pour ton <strong>appel découverte de 30 minutes</strong> et découvre comment le
+                programme "Guérison Ancestrale" peut transformer ta vie.
+            </p>
+        </div>
+    </section>
+
+    <!-- ========== BENEFITS SECTION ========== -->
+    <section class="benefits">
+        <div class="container">
+            <div class="benefits__grid">
+                <div class="feature-card fade-up">
+                    <img src="assets/images/67516f4858883_wired-outline-1265-hospital-visit-hover-click.gif"
+                        alt="Écoute" class="feature-card__icon">
+                    <h4 class="feature-card__title">Écoute bienveillante</h4>
+                    <p class="feature-card__text">Un espace sécurisé pour partager ton histoire et tes défis sans
+                        jugement.</p>
+                </div>
+
+                <div class="feature-card fade-up">
+                    <img src="assets/images/67516f7b3ed86_wired-outline-981-consultation-hover-conversation.gif"
+                        alt="Diagnostic" class="feature-card__icon">
+                    <h4 class="feature-card__title">Diagnostic personnalisé</h4>
+                    <p class="feature-card__text">Identification précise de tes besoins spécifiques et des solutions
+                        adaptées.</p>
+                </div>
+
+                <div class="feature-card fade-up">
+                    <img src="assets/images/67516fab55233_wired-outline-1468-morale-hover-pinch.gif"
+                        alt="Accompagnement" class="feature-card__icon">
+                    <h4 class="feature-card__title">Plan d'action clair</h4>
+                    <p class="feature-card__text">Découvre les prochaines étapes concrètes vers ta renaissance
+                        holistique.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ABOUT ADELE SECTION ========== -->
+    <section class="about section--dark">
+        <div class="container container--form">
+            <div class="row fade-up" style="align-items: center;">
+                <div class="col col-4">
+                    <img src="assets/images/6750345726626_Messenger_creation_34CE615A-B624-46FC-9AA4-A65E3028CF54.jpeg"
+                        alt="Adèle Kasaku" class="about__image">
+                </div>
+                <div class="col col-8">
+                    <h2 class="about__title">
+                        Rencontre <span>Adèle Kasaku</span>
+                    </h2>
+
+                    <p class="about__text">
+                        <strong>Naturopathe certifiée</strong> et spécialiste de la santé holistique pour les femmes
+                        africaines en Europe.
+                    </p>
+
+                    <p class="about__text">
+                        Formée à la <em>Haute école des Naturopathes Africains HENAE en Suisse</em>, j'accompagne les
+                        femmes de la diaspora vers une <span class="hero__highlight"><strong>renaissance physique,
+                                émotionnelle et énergétique complète</strong></span>.
+                    </p>
+
+                    <div class="about__divider"></div>
+
+                    <p class="about__text" style="font-size: 14px;">
+                        Mon approche unique intègre les <strong>traditions ancestrales africaines</strong> et les
+                        <strong>dernières avancées en nutrithérapie</strong> pour une transformation profonde et
+                        durable.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PAYMENT FORM SECTION ========== -->
+    <section class="payment-section">
+        <div class="container container--form">
+            <h2 class="section-title">Finalise Ta Réservation</h2>
+
+            <form id="payment-form" class="payment-form">
+                <!-- Personal Information -->
+                <div class="form-group">
+                    <label for="name">Nom complet *</label>
+                    <input type="text" id="name" name="name" placeholder="Ton nom et prénom" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Adresse e-mail *</label>
+                    <input type="email" id="email" name="email" placeholder="ton.email@exemple.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Numéro de téléphone *</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+32 XXX XX XX XX" required>
+                </div>
+
+                <!-- Price Display -->
+                <div class="price-display">
+                    <div class="price-display__row">
+                        <div>
+                            <span class="price-display__badge">OFFRE SPÉCIALE</span>
+                            <span class="price-display__name">Appel découverte (30 min)</span>
+                        </div>
+                        <span class="price-display__amount">€49,99</span>
+                    </div>
+                </div>
+
+                <!-- Payment Method Selection -->
+                <div class="form-group">
+                    <label>Méthode de paiement</label>
+                    <div style="display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap;">
+                        <label
+                            style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 15px 20px; background: var(--white); border: 2px solid #ddd; border-radius: var(--border-radius); flex: 1; min-width: 150px;">
+                            <input type="radio" name="payment-method" value="card" checked style="width: auto;">
+                            <span style="font-weight: 500;">💳 Carte bancaire</span>
+                        </label>
+                        <label
+                            style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 15px 20px; background: var(--white); border: 2px solid #ddd; border-radius: var(--border-radius); flex: 1; min-width: 150px;">
+                            <input type="radio" name="payment-method" value="ideal" style="width: auto;">
+                            <img src="assets/images/ideal.png" alt="iDEAL" style="height: 20px;">
+                            <span style="font-weight: 500;">iDEAL</span>
+                        </label>
+                        <label
+                            style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 15px 20px; background: var(--white); border: 2px solid #ddd; border-radius: var(--border-radius); flex: 1; min-width: 150px;">
+                            <input type="radio" name="payment-method" value="bancontact" style="width: auto;">
+                            <img src="assets/images/bancontact.png" alt="Bancontact" style="height: 20px;">
+                            <span style="font-weight: 500;">Bancontact</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Card Payment Fields -->
+                <div id="card-payment-fields">
+                    <div class="form-group">
+                        <label>Numéro de carte</label>
+                        <div id="card-number" class="stripe-element"></div>
+                    </div>
+
+                    <div class="stripe-row">
+                        <div class="form-group">
+                            <label>Date d'expiration</label>
+                            <div id="card-expiry" class="stripe-element"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>CVC</label>
+                            <div id="card-cvc" class="stripe-element"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error Display -->
+                <div id="card-errors" role="alert"
+                    style="color: #e74c3c; font-size: 14px; margin: 15px 0; display: none;"></div>
+
+                <!-- Consent -->
+                <div class="consent-group">
+                    <input type="checkbox" id="consent" name="consent" required>
+                    <label for="consent">
+                        J'accepte les <a href="#"
+                            style="color: var(--primary-gold); text-decoration: underline;">conditions générales de
+                            vente</a> et la <a href="#"
+                            style="color: var(--primary-gold); text-decoration: underline;">politique de
+                            confidentialité</a>. Je comprends que cet appel découverte est un premier pas vers le
+                        programme "Guérison Ancestrale".
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn--primary btn--submit">
+                    <span>Confirmer ma réservation - €49,99</span>
+                </button>
+
+                <!-- Trust Elements -->
+                <p class="trust-text">
+                    🔒 Paiement 100% sécurisé via Stripe
+                </p>
+
+                <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px; opacity: 0.6;">
+                    <span style="font-size: 24px;">💳</span>
+                    <img src="assets/images/ideal.png" alt="iDEAL" style="height: 24px;">
+                    <img src="assets/images/bancontact.png" alt="Bancontact" style="height: 24px;">
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer style="background: var(--dark-bg); color: rgba(255,255,255,0.6); padding: 30px 20px; text-align: center;">
+        <div class="container">
+            <img src="assets/images/6750a37a9ad16_yaudilogo.png" alt="YAUDI Logo"
+                style="width: 60px; margin: 0 auto 15px;">
+            <p style="font-size: 14px; margin: 0;">
+                © 2024 YAUDI Food - Tous droits réservés
+            </p>
+            <p style="font-size: 12px; margin-top: 10px;">
+                <a href="#" style="color: var(--primary-gold);">Conditions générales</a> |
+                <a href="#" style="color: var(--primary-gold);">Politique de confidentialité</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script>
+        // Payment method toggle
+        document.querySelectorAll('input[name="payment-method"]').forEach(radio => {
+            radio.addEventListener('change', function () {
+                const cardFields = document.getElementById('card-payment-fields');
+                if (this.value === 'card') {
+                    cardFields.style.display = 'block';
+                } else {
+                    cardFields.style.display = 'none';
+                }
+
+                // Update all payment method labels styling
+                document.querySelectorAll('input[name="payment-method"]').forEach(r => {
+                    const label = r.closest('label');
+                    if (r.checked) {
+                        label.style.borderColor = 'var(--primary-gold)';
+                        label.style.background = 'rgba(255, 204, 51, 0.1)';
+                    } else {
+                        label.style.borderColor = '#ddd';
+                        label.style.background = 'var(--white)';
+                    }
+                });
+            });
+
+            // Initialize styling
+            radio.dispatchEvent(new Event('change'));
+        });
+    </script>
+</body>
+
+</html>
