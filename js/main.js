@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (stripeForm) {
         // Initialize Stripe
         // NOTE: Replace with your actual publishable key
-        const stripe = Stripe('pk_test_REPLACE_WITH_YOUR_PUBLISHABLE_KEY');
+        const stripe = Stripe('pk_test_xK4DKCXQgZtqbf9DleUhyzC800pIzcbRAI');
         const elements = stripe.elements({
             locale: 'fr'
         });
@@ -161,17 +161,57 @@ document.addEventListener('DOMContentLoaded', function () {
                 const phone = document.getElementById('phone')?.value || '';
                 const paymentMethodType = document.querySelector('input[name="payment-method"]:checked').value;
 
-                let paymentMethodId = null;
-
-                // Create payment method if card is selected
-                if (paymentMethodType === 'card') {
-                    const { paymentMethod, error } = await stripe.createPaymentMethod({
-                        type: 'card',
-                        card: cardNumberElement,
-                        billing_details: {
+                // 1. SAVE LEAD TO SUPABASE (Status: NEW)
+                console.log('Saving lead...');
+                const { data: leadData, error: dbError } = await supabase
+                    .from('leads')
+                    .insert([
+                        {
                             name: name,
                             email: email,
-                            phone: phone
+                            phone: phone,
+                            payment_method: paymentMethodType,
+                            status: 'new' // Pending payment
+                        }
+                    ])
+                    .select()
+                    .single();
+
+                if (dbError) console.error('Database error:', dbError);
+
+                const leadId = leadData ? leadData.id : null;
+
+                // 2. PROCESS PAYMENT 
+                if (paymentMethodType === 'card') {
+
+                    // A. Call backend to create PaymentIntent
+                    // This uses the Netlify Function we just created
+                    const response = await fetch('/api/create-payment-intent', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            amount: 4999,
+                            receipt_email: email,
+                            description: `Appel découverte - ${name}`
+                        }),
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error || 'Erreur serveur lors de la création du paiement.');
+                    }
+
+                    const { clientSecret } = await response.json();
+
+                    // B. Confirm Card Payment with Stripe
+                    const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
+                        payment_method: {
+                            card: cardNumberElement,
+                            billing_details: {
+                                name: name,
+                                email: email,
+                                phone: phone
+                            }
                         }
                     });
 
@@ -181,38 +221,31 @@ document.addEventListener('DOMContentLoaded', function () {
                         submitButton.innerHTML = originalText;
                         return;
                     }
-                    paymentMethodId = paymentMethod.id;
-                } else {
-                    // For other methods (simulated for now as logic wasn't fully implemented in original)
-                    paymentMethodId = paymentMethodType + '_simulated';
-                }
 
-                // SAVE TO SUPABASE
-                console.log('Saving to database...');
-                const { data, error: dbError } = await supabase
-                    .from('leads')
-                    .insert([
-                        {
-                            name: name,
-                            email: email,
-                            phone: phone,
-                            payment_method: paymentMethodType,
-                            stripe_payment_id: paymentMethodId,
-                            status: 'new'
+                    if (paymentIntent.status === 'succeeded') {
+                        // 3. UPDATE LEAD STATUS TO PAID
+                        console.log('Payment succeeded!');
+
+                        if (leadId) {
+                            await supabase
+                                .from('leads')
+                                .update({
+                                    status: 'paid',
+                                    stripe_payment_id: paymentIntent.id
+                                })
+                                .eq('id', leadId);
                         }
-                    ]);
 
-                if (dbError) {
-                    console.error('Database error:', dbError);
-                    // We continue even if DB save fails to not block the "sale", 
-                    // but usually you'd want to handle this. For now we alert.
-                    console.warn('Could not save to database, but payment processed locally.');
+                        // 4. REDIRECT
+                        window.location.href = 'success.html';
+                    }
+
                 } else {
-                    console.log('Saved to leads table successfully');
+                    // Manual/Other Payment Methods handling
+                    alert('Les paiements iDEAL et Bancontact ne sont pas encore activés.');
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalText;
                 }
-
-                // Modify redirect to pass name for success page personalization (optional)
-                window.location.href = 'success.html';
 
             } catch (err) {
                 console.error('Process error:', err);

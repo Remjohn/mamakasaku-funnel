@@ -265,10 +265,13 @@
                     }
                 });
             });
-
-            // Initialize styling
-            radio.dispatchEvent(new Event('change'));
         });
+
+        // Initialize styling
+        const checkedRadio = document.querySelector('input[name="payment-method"]:checked');
+        if (checkedRadio) {
+            checkedRadio.dispatchEvent(new Event('change'));
+        }
     </script>
 </body>
 
