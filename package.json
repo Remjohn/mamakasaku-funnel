@@ -1,0 +1,12 @@
+{
+  "name": "adele-funnel",
+  "version": "1.0.0",
+  "description": "Funnel de vente avec Stripe et Netlify Functions",
+  "main": "index.js",
+  "dependencies": {
+    "stripe": "^14.0.0"
+  },
+  "scripts": {
+    "build": "echo 'No build step required'"
+  }
+}

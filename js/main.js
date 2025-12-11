@@ -185,12 +185,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (paymentMethodType === 'card') {
 
                     // A. Call backend to create PaymentIntent
-                    // This uses the Netlify Function we just created
-                    const response = await fetch('/api/create-payment-intent', {
+                    const response = await fetch('/.netlify/functions/create-payment-intent', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            amount: 4999,
+                            amount: 4999, // 49.99 EUR
                             receipt_email: email,
                             description: `Appel découverte - ${name}`
                         }),
@@ -242,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 } else {
                     // Manual/Other Payment Methods handling
-                    alert('Les paiements iDEAL et Bancontact ne sont pas encore activés.');
+                    alert('Les paiements iDEAL et Bancontact ne sont pas encore activés. Veuillez choisir "Carte bancaire".');
                     submitButton.disabled = false;
                     submitButton.innerHTML = originalText;
                 }
