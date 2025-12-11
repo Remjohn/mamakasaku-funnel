@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (stripeForm) {
         // Initialize Stripe
         // NOTE: Replace with your actual publishable key
-        const stripe = Stripe('pk_test_xK4DKCXQgZtqbf9DleUhyzC800pIzcbRAI');
+        const stripe = Stripe('pk_live_BrcZBFNM3SO1tIKQyC1eo74f00S0hpUwl9');
         const elements = stripe.elements({
             locale: 'fr'
         });
