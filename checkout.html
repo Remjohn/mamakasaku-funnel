@@ -151,18 +151,19 @@
                     <label>Méthode de paiement</label>
                     <div style="display: flex; gap: 15px; margin-top: 10px; flex-wrap: wrap;">
                         <label
-                            style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 15px 20px; background: var(--white); border: 2px solid #ddd; border-radius: var(--border-radius); flex: 1; min-width: 150px;">
+                            style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 15px 20px; background: rgba(255, 204, 51, 0.1); border: 2px solid var(--primary-gold); border-radius: var(--border-radius); flex: 1; min-width: 150px;">
                             <input type="radio" name="payment-method" value="card" checked style="width: auto;">
                             <span style="font-weight: 500;">💳 Carte bancaire</span>
                         </label>
+                        <!-- Hidding unfinished methods for now -->
                         <label
-                            style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 15px 20px; background: var(--white); border: 2px solid #ddd; border-radius: var(--border-radius); flex: 1; min-width: 150px;">
+                            style="display: none; align-items: center; gap: 8px; cursor: pointer; padding: 15px 20px; background: var(--white); border: 2px solid #ddd; border-radius: var(--border-radius); flex: 1; min-width: 150px;">
                             <input type="radio" name="payment-method" value="ideal" style="width: auto;">
                             <img src="assets/images/ideal.png" alt="iDEAL" style="height: 20px;">
                             <span style="font-weight: 500;">iDEAL</span>
                         </label>
                         <label
-                            style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 15px 20px; background: var(--white); border: 2px solid #ddd; border-radius: var(--border-radius); flex: 1; min-width: 150px;">
+                            style="display: none; align-items: center; gap: 8px; cursor: pointer; padding: 15px 20px; background: var(--white); border: 2px solid #ddd; border-radius: var(--border-radius); flex: 1; min-width: 150px;">
                             <input type="radio" name="payment-method" value="bancontact" style="width: auto;">
                             <img src="assets/images/bancontact.png" alt="Bancontact" style="height: 20px;">
                             <span style="font-weight: 500;">Bancontact</span>
@@ -268,10 +269,10 @@
         });
 
         // Initialize styling
-        const checkedRadio = document.querySelector('input[name="payment-method"]:checked');
-        if (checkedRadio) {
-            checkedRadio.dispatchEvent(new Event('change'));
-        }
+        // const checkedRadio = document.querySelector('input[name="payment-method"]:checked');
+        // if (checkedRadio) {
+        //     checkedRadio.dispatchEvent(new Event('change'));
+        // }
     </script>
 </body>
 
